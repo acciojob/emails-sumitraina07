@@ -1,5 +1,7 @@
 package com.driver;
 
+import java.io.CharConversionException;
+
 public class Email {
 
     private String emailId;
@@ -25,5 +27,36 @@ public class Email {
         // 3. It contains at least one lowercase letter
         // 4. It contains at least one digit
         // 5. It contains at least one special character. Any character apart from alphabets and digits is a special character
+
+        if(this.password != oldPassword){
+            return;
+        }
+        if(newPassword.length() < 8){
+            return;
+        }
+        boolean hasUpperCase = false;
+        boolean hasLowerCase = false;
+        boolean hasDigit = false;
+        boolean hasSpecialCharacter = false;
+
+        char[] strChar = newPassword.toCharArray();
+        for(char ch : strChar){
+            if(Character.isUpperCase(ch)){
+                hasUpperCase = true;
+            }
+            if(Character.isLowerCase(ch)){
+                hasLowerCase = true;
+            }
+            if(Character.isDigit(ch)){
+                hasDigit = true;
+            }
+            if(!Character.isLetterOrDigit(ch)){
+                hasSpecialCharacter = true;
+            }
+        }
+        if(!hasUpperCase || !hasLowerCase || !hasDigit || !hasSpecialCharacter){
+            return;
+        }
+        this.password = newPassword;
     }
 }
